@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(219, 219, 219);
+}
+
+.gol-header {
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    background-color: #333333;
+    color: #ffffff;
+    font-weight: 800;
+    letter-spacing: 3px;
+    font-style: oblique;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 1);
+    text-shadow: 1px -1px 3px #87919b;
+}
+
+.row {
+    display: block;
+    position: absolute;
+    left: 50%;
+
+    transform: translate(-50%, 0);
+}
+
+.container-main {
+    padding: 10px 10px 0 10px;
+    background-color: rgb(143, 138, 131);
+}
+
+.canvas-container {
+    /* float: left; */
+    
+}
+
+.controls-container {
+    /* float: left;
+    margin-top: 30px; */
+}
+
+.gol-button {
+    /* display: block; */
+    margin-bottom: 5px;
+    width: 100px;
+    height: 35px;
+    padding: 5px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    /* box-shadow: 0px 1px 0px 0px #ec9589; */
+    /* background:linear-gradient(to bottom, #f7620c 5%, #e28753 100%); */
+    background-color:#37e47f;
+    border-radius:6px;
+    border: none;
+    color:#333333;
+    /* text-shadow:0px 1px 0px #ec9167; */
+}
+
+.gol-button:hover {
+    cursor: pointer;
+    background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+    background-color:#ffab23;
+}
+
+.gol-button:disabled {
+    background:linear-gradient(to bottom, #ebc890 5%, #e6cfab 100%);
+    background-color:#f7a475;
+    cursor: default;
+}
+
+.gol-button:active {
+    position:relative;
+    top:1px;
+}
+
+canvas {
+    margin-bottom: 10px;
+}
+
+canvas:hover {
+    cursor: pointer;
+}
+
+.btn-icon {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal.open {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+    animation: unravell .5s ease-in-out;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  /* Modal Body */
+.modal-body { padding: 2px 16px; }
+  
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes unravell {
+    from {
+        transform: scaleY(0);
+        opacity: 0;
+    } to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}

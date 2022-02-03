@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>doc</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="gol-header">
+        <span class="logo-text">Game of life</span>
+    </header>
+    <div class="row">
+        <div class="container-main">
+            <div class="canvas-container">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div class="controls-container">
+                <button id="next" class="gol-button"><icon class="fa fa-forward btn-icon"></icon>Step</button>
+                <button id="start" class="gol-button"><icon class="fa fa-play btn-icon"></icon>Start</button>
+                <button id="stop" class="gol-button"><icon class="fa fa-stop btn-icon"></icon>Stop</button>
+                <button id="clear" class="gol-button"><icon class="fa fa-times btn-icon"></icon>Clear</button>
+                <button id="help" class="gol-button"><icon class="fa fa-info btn-icon"></icon>Info</button>
+                <!-- <button id="save" class="gol-button"><icon class="fa fa-save btn-icon"></icon>Save</button> -->
+            </div>
+        </div>         
+    </div>
+
+        <!-- The Modal -->
+    <div id="infoDialog" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>John Conway’s Game of Life</h2>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+            </div>
+        </div>
+    
+    </div>
+
+    <script src="gol.js"></script>
+</body>
+</html>

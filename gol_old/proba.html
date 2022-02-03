@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas {
+            border: 1px solid black;
+        }
+
+        canvas:hover {
+            cursor: pointer;
+        }
+
+        canvas.mouse-down {
+            cursor:-moz-grabbing;
+        }
+    </style>
+    <body>
+        <canvas id="canvas"></canvas>
+
+        <label id="info"></label>
+        <label id="mouse"></label>
+
+
+        <script>
+            const w = 400, h = 300;
+            let mouseDown = false;
+
+            let cX = 0, cY = 0;
+            let gX = 0, gY = 0;
+            let speed = 1;
+            let gScale = 1;
+            let scale = 0.1;
+
+            let ctx;
+
+            function drawWorld() {
+
+                
+                
+                ctx.setTransform(gScale, 0, 0, gScale, gX, gY);
+                
+                ctx.strokeStyle = "#000000";
+
+                for (let i = 0; i < 20; i++) {
+                    for (let j = 0; j < 20; j++) {
+                        if ((i + j) % 2 !== 0) {
+                            ctx.fillStyle = "#FF8ED6";
+                        } else {
+                            ctx.fillStyle = "#8ED6FF";
+                        }
+                        ctx.fillRect(w * i, h * j, w, h);
+                        ctx.strokeRect(w * i, h * j, w, h);
+                    }
+                }
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+            }
+
+            window.onload = function() {
+                const canvas = document.getElementById("canvas");
+                ctx = canvas.getContext("2d");
+
+
+                canvas.setAttribute("width", 800);
+                canvas.setAttribute("height", 600);
+
+                const label = document.getElementById("info");
+                const labelMouse = document.getElementById("mouse");
+
+                label.innerHTML = `Mouse down: ${mouseDown} `;
+
+                ctx.strokeStyle = "#000000";
+
+                drawWorld();
+
+                canvas.onwheel = function(e) {
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    }
+
+
+                    gScale += e.deltaY * -0.01;
+                    if (gScale < 0.2) {
+                        gScale = 0.2;
+                    }
+
+                    if (gScale > 1.6) {
+                        gScale = 1.6;
+                    }
+                };
+
+                canvas.onmousedown = function(e) {
+                    mouseDown = true;
+
+                    cX = e.clientX;
+                    cY = e.clientY;
+
+
+                    canvas.classList.add("mouse-down");
+                    label.innerHTML = `Mouse down: ${mouseDown} `;
+                };
+
+                canvas.onmouseup = function(e) {
+                    mouseDown = false;
+                    canvas.classList.remove("mouse-down");
+                    label.innerHTML = `Mouse down: ${mouseDown} `;
+                };
+
+                canvas.onmouseleave = function(e) {
+                    mouseDown = false;
+                    canvas.classList.remove("mouse-down");
+                    label.innerHTML = `Mouse down: ${mouseDown} `;
+                };
+
+                canvas.onmousemove = function(e) {
+                    if (mouseDown) {
+                        gX += (e.clientX - cX) * speed;
+                        gY += (e.clientY - cY) * speed;
+
+                        cX = e.clientX;
+                        cY = e.clientY;
+                    }
+
+                    labelMouse.innerHTML = `| gX: ${gX} gY: ${gY}`;
+                }
+
+                function update() {
+                    ctx.clearRect(0, 0, 800, 600);
+                    ctx.setTransform(1, 0, 0, 1, 0, 0); // reset transform
+                    drawWorld();
+
+                    if (req) {
+                        cancelAnimationFrame(req);
+                    }
+
+                    requestAnimationFrame(update);
+                }
+
+                let req;
+                req = requestAnimationFrame(update);
+            }
+        </script>
+    </body>
+</html>
