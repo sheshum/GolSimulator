@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="css/style.css">
     <title>GOL</title>
 
-    <script src="js/helpers.js" defer></script>
+    <!-- <script src="js/helpers.js" defer></script>
     <script src="js/panZoom.js" defer></script>
     <script src="js/gol.js" defer></script>
-    <script src="js/screen.js" defer></script>
-    <script src="js/main.js" defer></script>
+    <script src="js/screen.js" defer></script> -->
+    <script src="bundle.js" defer></script>
 </head>
 <body>
     <div class="screen-container">

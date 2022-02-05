@@ -1,4 +1,11 @@
+import PanZoom from "./panZoom.js";
+
 const CELL_COLOR = "#38abd1";
+let cell_size = 10;
+const DISPLAY_GRID = false;
+
+let scaleRate = 2;
+
 
 const GolScreen = {
     initialized: false,
@@ -15,10 +22,28 @@ const GolScreen = {
         this.canvas_dom_element.height = height;
         this.context = this.canvas_dom_element.getContext("2d");
 
-        initialized = true;
+        this.initialized = true;
     },
 
-    get_canvas() { return this.canvas_dom_element; },
+    update_mouse_pos() {
+        
+        let mouse = PanZoom.mouse;
+        if (mouse.down) {
+            if (!mouse.drag) {
+                mouse.drag = true;
+                mouse.lastX = mouse.x;
+                mouse.lastY = mouse.y;
+            } else {
+                PanZoom.deltaX += mouse.x - mouse.lastX;
+                PanZoom.deltaY += mouse.y - mouse.lastY;
+    
+                mouse.lastX = mouse.x;
+                mouse.lastY = mouse.y;
+            }
+        } else if(mouse.drag) {
+            mouse.drag = false;
+        }
+    },
 
     draw_grid() {
         if (!DISPLAY_GRID) return;
@@ -86,7 +111,39 @@ const GolScreen = {
         this.draw_grid();
         this.draw_life(draw_data);
 
-        console.log(`screen.js::draw:: drawing finished (draw_data length= ${draw_data.length})`);
+        // console.log(`screen.js::draw:: drawing finished (draw_data length= ${draw_data.length})`);
+    },
+
+    init_listeners() {
+        let canvas = this.canvas_dom_element;
+        canvas.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            if (e.button === 2) PanZoom.mouse.down = true;
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            e.preventDefault();
+            if (e.button === 2) PanZoom.mouse.down = false;
+        });
+    
+        canvas.addEventListener('mousemove', (e) => {
+            let client_rect = canvas.getBoundingClientRect();
+    
+            PanZoom.mouse.x = e.clientX - client_rect.left;
+            PanZoom.mouse.y = e.clientY - client_rect.top;
+        });
+
+        canvas.addEventListener('contextmenu', (e) => e.preventDefault()); // prevent right click menu from opening
+
+        const btn_zoom_in = document.getElementById("btn-zoom-in");
+        const btn_zoom_out = document.getElementById("btn-zoom-out");
+
+        btn_zoom_in.addEventListener("click", () => PanZoom.scaleAt(scaleRate));
+        btn_zoom_out.addEventListener("click", () => PanZoom.scaleAt(1/scaleRate));
+
+        
     }
 
 };
+
+export default GolScreen;
