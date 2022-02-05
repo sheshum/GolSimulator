@@ -39,3 +39,10 @@ const coordinates_to_indices = (x, y, cell_size) => {
 
     return [col, row];
 }
+
+module.exports = {
+    get_row_col_key,
+    parse_row_col_key,
+    coordinates_to_indices,
+    random_coordinates
+};

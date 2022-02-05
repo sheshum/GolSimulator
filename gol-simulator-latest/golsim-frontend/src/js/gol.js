@@ -4,42 +4,17 @@
  * 
  */
 
+
+import {
+    random_coordinates,
+    get_row_col_key,
+    parse_row_col_key
+} from './helpers';
+
+
 let current_life = {};
 let dead_neighbours_hash = {};
 
-
-function initialize(initial_state, randomize, spread, DIM) {
-    
-    let draw_state = [];
-    current_life = {};
-    dead_neighbours_hash = {};
-    
-    console.log(`Initializing new state (randomize=${randomize}, initial_state length=${initial_state.length})`);
-
-
-    if (typeof randomize !== "boolean") randomize = false;
-    if (spread >= DIM) spread = Math.floor(DIM * 0.5);
-    
-    if (randomize) {
-        let hashed = {};
-        while (draw_state.length < Math.floor(DIM * spread)) {
-            let [ row, col] = random_coordinates(hashed);
-            let key = get_row_col_key(row, col);
-            add_cell(key, current_life, dead_neighbours_hash);
-            draw_state.push([row, col]);
-        }
-    } else {
-        initial_state.forEach(coordinate => {
-            let key = get_row_col_key(coordinate[0], coordinate[1]);
-            add_cell(key, current_life, dead_neighbours_hash);
-            draw_state.push(coordinate);
-        });
-    }
-
-    console.log("State initialized, cells: ", draw_state.length);
-    return draw_state;
-
-}
 
 function get_neighbour_keys(cell_key) {
     let [row, col] = parse_row_col_key(cell_key);
@@ -91,7 +66,7 @@ function add_cell(cell_key, state, all_dead_neighbours) {
  * @param {Function} onCellAdded
  * 
 */
-function next_generation(onCellAdded = null) {
+export function next_generation(onCellAdded = null) {
 
     let
 
@@ -149,4 +124,37 @@ function next_generation(onCellAdded = null) {
 
 
     return draw_life;
+}
+
+export function initialize(initial_state, randomize, spread, DIM) {
+    
+    let draw_state = [];
+    current_life = {};
+    dead_neighbours_hash = {};
+    
+    console.log(`Initializing new state (randomize=${randomize}, initial_state length=${initial_state.length})`);
+
+
+    if (typeof randomize !== "boolean") randomize = false;
+    if (spread >= DIM) spread = Math.floor(DIM * 0.5);
+    
+    if (randomize) {
+        let hashed = {};
+        while (draw_state.length < Math.floor(DIM * spread)) {
+            let [ row, col] = random_coordinates(hashed);
+            let key = get_row_col_key(row, col);
+            add_cell(key, current_life, dead_neighbours_hash);
+            draw_state.push([row, col]);
+        }
+    } else {
+        initial_state.forEach(coordinate => {
+            let key = get_row_col_key(coordinate[0], coordinate[1]);
+            add_cell(key, current_life, dead_neighbours_hash);
+            draw_state.push(coordinate);
+        });
+    }
+
+    console.log("State initialized, cells: ", draw_state.length);
+    return draw_state;
+
 }
