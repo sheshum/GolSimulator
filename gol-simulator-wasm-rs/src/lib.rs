@@ -13,7 +13,7 @@ extern {
     fn alert(s: &str);
 }
 
-#[wasm_bindgen(module = "/www/assets/js/screen.js")]
+#[wasm_bindgen(module = "/frontend/assets/js/screen.js")]
 extern {
     fn add_cell();
 }
